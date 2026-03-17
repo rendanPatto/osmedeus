@@ -34,6 +34,7 @@ var builtinACPAgents = map[string]acpAgentDef{
 	"codex":       {Command: "npx", Args: []string{"-y", "@zed-industries/codex-acp"}},
 	"opencode":    {Command: "opencode", Args: []string{"acp"}},
 	"gemini":      {Command: "gemini", Args: []string{"--experimental-acp"}},
+	"iflow":       {Command: "iflow", Args: []string{"--experimental-acp", "--stream"}},
 }
 
 // ACPExecutor implements StepExecutorPlugin for agent-acp steps.
