@@ -244,9 +244,11 @@ modules:
   # ===========================================================================
   # Phase 8: Vulnerability Scan
   # ===========================================================================
+  # 注意：移除对 ai-intelligent-analysis 的强制依赖
+  # 即使 AI 分析失败，vuln-suite 仍会使用默认配置执行
   - name: vuln-suite
     path: common/09-vuln-suite.yaml
-    depends_on: [content-analysis, http-probe, dns-resolve, scan-content, ai-intelligent-analysis]
+    depends_on: [content-analysis, http-probe, dns-resolve, scan-content]
 
   # ===========================================================================
   # Phase 9: Code Review
