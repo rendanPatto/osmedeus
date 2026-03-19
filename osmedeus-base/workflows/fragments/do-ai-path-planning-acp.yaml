@@ -57,6 +57,36 @@ steps:
       - 'create_folder("{{Output}}/ai-analysis")'
       - 'log_info("Starting AI attack path planning for {{Target}}")'
 
+  - name: validate-input-data
+    type: bash
+    pre_condition: "{{enablePathPlanning}}"
+    command: |
+      echo "[Path Planning] Checking input data..."
+      
+      # 检查必要的输入文件
+      REQUIRED_FILES="{{attackChainFile}} {{vulnValidationFile}}"
+      MISSING_FILES=""
+      
+      for f in $REQUIRED_FILES; do
+        if [ ! -f "$f" ] || [ ! -s "$f" ]; then
+          MISSING_FILES="$MISSING_FILES $f"
+        fi
+      done
+      
+      if [ -n "$MISSING_FILES" ]; then
+        echo "[Warning] Missing/empty input files:$MISSING_FILES"
+      else
+        echo "[Path Planning] All required input files available"
+      fi
+      
+      # 检查攻击链数据
+      if [ -f "{{attackChainFile}}" ] && jq empty "{{attackChainFile}}" 2>/dev/null; then
+        CHAINS=$(jq -r '.attack_chain_summary.total_chains // 0' "{{attackChainFile}}" 2>/dev/null || echo 0)
+        echo "[Path Planning] Attack chains available: $CHAINS"
+      fi
+      
+      echo "[Path Planning] Input data check complete"
+
   - name: collect-planning-data
     type: bash
     pre_condition: "{{enablePathPlanning}}"
@@ -189,15 +219,23 @@ steps:
     exports:
       path_planning_json: "{{acp_output}}"
 
+  - name: log-progress
+    type: function
+    pre_condition: "{{enablePathPlanning}}"
+    functions:
+      - 'log_info("[Progress] AI path planning step completed")'
+
   - name: save-path-planning-results
     type: bash
     pre_condition: "{{enablePathPlanning}}"
     command: |
+      echo "[Path Planning] Saving planning results..."
       mkdir -p {{Output}}/ai-analysis
 
       # 容错：处理可能的空输出
       if [ -n "{{path_planning_json}}" ] && [ "{{path_planning_json}}" != "null" ] && [ "{{path_planning_json}}" != "{}" ]; then
-        echo '{{path_planning_json}}' > {{pathPlanningOutput}}
+        # 提取 markdown 代码块中的 JSON
+        echo '{{path_planning_json}}' | sed 's/```json//g; s/```//g' | jq '.' > {{pathPlanningOutput}} 2>/dev/null || echo '{{path_planning_json}}' > {{pathPlanningOutput}}
         
         if jq empty {{pathPlanningOutput}} 2>/dev/null; then
           PHASES=$(jq -r '.plan_summary.total_phases // 0' {{pathPlanningOutput}} 2>/dev/null || echo 0)

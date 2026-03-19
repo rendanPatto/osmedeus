@@ -63,6 +63,46 @@ steps:
       - 'create_folder("{{Output}}/ai-analysis/validation")'
       - 'log_info("Starting AI vulnerability validation for {{Target}}")'
 
+  - name: validate-input-data
+    type: bash
+    pre_condition: "{{enableVulnValidation}}"
+    command: |
+      echo "[Vuln Validation] Checking input data..."
+      
+      # 检查必要的输入文件
+      REQUIRED_FILES="{{nucleiCriticalFile}} {{nucleiHighFile}} {{fingerprintFile}}"
+      MISSING_FILES=""
+      EMPTY_FILES=""
+      
+      for f in $REQUIRED_FILES; do
+        if [ ! -f "$f" ]; then
+          MISSING_FILES="$MISSING_FILES $f"
+        elif [ ! -s "$f" ]; then
+          EMPTY_FILES="$EMPTY_FILES $f"
+        fi
+      done
+      
+      if [ -n "$MISSING_FILES" ]; then
+        echo "[Warning] Missing input files:$MISSING_FILES"
+      fi
+      
+      if [ -n "$EMPTY_FILES" ]; then
+        echo "[Warning] Empty input files:$EMPTY_FILES"
+      fi
+      
+      # 统计可用数据量
+      if [ -f "{{nucleiCriticalFile}}" ]; then
+        CRIT_COUNT=$(wc -l < "{{nucleiCriticalFile}}" 2>/dev/null || echo 0)
+        echo "[Vuln Validation] Critical vulns available: $CRIT_COUNT"
+      fi
+      
+      if [ -f "{{nucleiHighFile}}" ]; then
+        HIGH_COUNT=$(wc -l < "{{nucleiHighFile}}" 2>/dev/null || echo 0)
+        echo "[Vuln Validation] High vulns available: $HIGH_COUNT"
+      fi
+      
+      echo "[Vuln Validation] Input data check complete"
+
   - name: ai-validate-vulns
     type: agent-acp
     agent: flowcli
@@ -87,6 +127,7 @@ steps:
           - 必须返回结构化的 JSON 输出
           - 每个漏洞必须有置信度评分
           - 提供可执行的验证命令
+          - 完成后在日志中输出"验证完成"
           
       - role: user
         content: |
@@ -159,20 +200,28 @@ steps:
           }
           ```
 
-          只输出 JSON，确保格式完全正确。
+          只输出 JSON，确保格式完全正确。验证完成后输出"验证完成"。
 
     exports:
       validation_json: "{{acp_output}}"
+
+  - name: log-progress
+    type: function
+    pre_condition: "{{enableVulnValidation}}"
+    functions:
+      - 'log_info("[Progress] AI vulnerability validation step completed")'
 
   - name: save-validation-results
     type: bash
     pre_condition: "{{enableVulnValidation}}"
     command: |
+      echo "[Vuln Validation] Saving validation results..."
       mkdir -p {{Output}}/ai-analysis/validation
 
       # 容错：处理可能的空输出
       if [ -n "{{validation_json}}" ] && [ "{{validation_json}}" != "null" ] && [ "{{validation_json}}" != "{}" ]; then
-        echo '{{validation_json}}' > {{vulnValidationOutput}}
+        # 提取 markdown 代码块中的 JSON
+        echo '{{validation_json}}' | sed 's/```json//g; s/```//g' | jq '.' > {{vulnValidationOutput}} 2>/dev/null || echo '{{validation_json}}' > {{vulnValidationOutput}}
         
         # 验证 JSON 格式
         if jq empty {{vulnValidationOutput}} 2>/dev/null; then

@@ -62,6 +62,36 @@ steps:
       - 'create_folder("{{Output}}/ai-analysis")'
       - 'log_info("Starting AI attack chain analysis for {{Target}}")'
 
+  - name: validate-input-data
+    type: bash
+    pre_condition: "{{enableAttackChain}}"
+    command: |
+      echo "[Attack Chain] Checking input data..."
+      
+      # 检查必要的输入文件
+      REQUIRED_FILES="{{vulnValidationFile}} {{nucleiCriticalFile}} {{nucleiHighFile}}"
+      MISSING_FILES=""
+      
+      for f in $REQUIRED_FILES; do
+        if [ ! -f "$f" ] || [ ! -s "$f" ]; then
+          MISSING_FILES="$MISSING_FILES $f"
+        fi
+      done
+      
+      if [ -n "$MISSING_FILES" ]; then
+        echo "[Warning] Missing/empty input files:$MISSING_FILES"
+      else
+        echo "[Attack Chain] All required input files available"
+      fi
+      
+      # 检查验证后的漏洞数据
+      if [ -f "{{vulnValidationFile}}" ] && jq empty "{{vulnValidationFile}}" 2>/dev/null; then
+        CONFIRMED=$(jq -r '.validation_summary.confirmed_real // 0' "{{vulnValidationFile}}" 2>/dev/null || echo 0)
+        echo "[Attack Chain] Confirmed vulns from validation: $CONFIRMED"
+      fi
+      
+      echo "[Attack Chain] Input data check complete"
+
   - name: collect-vuln-data
     type: bash
     pre_condition: "{{enableAttackChain}}"
@@ -215,15 +245,23 @@ steps:
     exports:
       attack_chain_json: "{{acp_output}}"
 
+  - name: log-progress
+    type: function
+    pre_condition: "{{enableAttackChain}}"
+    functions:
+      - 'log_info("[Progress] AI attack chain analysis step completed")'
+
   - name: save-attack-chain-results
     type: bash
     pre_condition: "{{enableAttackChain}}"
     command: |
+      echo "[Attack Chain] Saving analysis results..."
       mkdir -p {{Output}}/ai-analysis
 
       # 容错：处理可能的空输出
       if [ -n "{{attack_chain_json}}" ] && [ "{{attack_chain_json}}" != "null" ] && [ "{{attack_chain_json}}" != "{}" ]; then
-        echo '{{attack_chain_json}}' > {{attackChainOutput}}
+        # 提取 markdown 代码块中的 JSON
+        echo '{{attack_chain_json}}' | sed 's/```json//g; s/```//g' | jq '.' > {{attackChainOutput}} 2>/dev/null || echo '{{attack_chain_json}}' > {{attackChainOutput}}
         
         if jq empty {{attackChainOutput}} 2>/dev/null; then
           CHAIN_COUNT=$(jq -r '.attack_chain_summary.total_chains // 0' {{attackChainOutput}} 2>/dev/null || echo 0)

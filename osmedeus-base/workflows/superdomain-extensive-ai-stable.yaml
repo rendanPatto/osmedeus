@@ -202,10 +202,11 @@ modules:
     depends_on: [subdomain, dns-resolve]
     pre_condition: "{{enablePreScanDecision}}"
 
-  # AI 语义搜索 - RAG 功能 (Jina embeddings，不需要改)
+  # AI 语义搜索 - RAG 功能 (Jina embeddings，独立处理)
+  # 依赖 http-probe 而非 fingerprint，可以更早开始并行执行
   - name: ai-semantic-search
     path: fragments/do-ai-semantic-search.yaml
-    depends_on: [fingerprint, content-analysis]
+    depends_on: [http-probe]
     pre_condition: "{{enableSemanticSearch}}"
     params:
       searchQuery: "SQL injection, XSS, RCE vulnerabilities and misconfigurations"
