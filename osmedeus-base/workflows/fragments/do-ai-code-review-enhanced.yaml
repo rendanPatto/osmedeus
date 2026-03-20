@@ -87,6 +87,8 @@ steps:
     timeout: "30m"
     acp_config:
       write_enabled: false
+    on_error:
+      - action: continue
     messages:
       - role: system
         content: "{% if file_exists('{{Output}}/ai-analysis/system-prompt.md') %}{{read_file('{{Output}}/ai-analysis/system-prompt.md')}}{% else %}{{read_file('{{securityReviewPrompt}}')}}{% endif %}"
@@ -141,6 +143,8 @@ steps:
     allowed_paths:
       - "{{Output}}"
     max_iterations: 3
+    on_error:
+      - action: continue
     messages:
       - role: system
         content: "You are a security analysis assistant."

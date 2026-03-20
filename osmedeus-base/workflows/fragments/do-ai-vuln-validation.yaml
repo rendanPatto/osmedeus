@@ -60,6 +60,9 @@ steps:
     type: agent
     pre_condition: "{{enableVulnValidation}}"
     max_iterations: 10
+    timeout: 600
+    on_error:
+      - action: continue
     system_prompt: |
       你是一个资深渗透测试专家，专注于漏洞验证。
       你的任务是对扫描结果进行验证，判断漏洞是否真实存在，识别假阳性。

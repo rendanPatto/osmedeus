@@ -1034,6 +1034,9 @@ steps:
     type: llm
     pre_condition: '{{enableLlmAnalysis}} && file_exists("{{nucleiOutputJsonl}}") && file_length("{{nucleiOutputJsonl}}") > 0'
     log: "Running LLM-powered vulnerability analysis"
+    timeout: 300
+    on_error:
+      - action: continue
     messages:
       - role: system
         content: |
@@ -1076,6 +1079,9 @@ steps:
     type: llm
     pre_condition: '{{enableLlmAnalysis}} && {{llmFalsePositiveFilter}} && file_exists("{{nucleiOutputJsonl}}") && file_length("{{nucleiOutputJsonl}}") > 0'
     log: "Filtering false positives with LLM"
+    timeout: 300
+    on_error:
+      - action: continue
     messages:
       - role: system
         content: |
@@ -1097,6 +1103,9 @@ steps:
     type: llm
     pre_condition: '{{enableLlmAnalysis}} && {{llmRiskPrioritization}} && file_exists("{{nucleiOutputJsonl}}") && file_length("{{nucleiOutputJsonl}}") > 0'
     log: "Prioritizing vulnerabilities by risk with LLM"
+    timeout: 300
+    on_error:
+      - action: continue
     messages:
       - role: system
         content: |
@@ -1124,6 +1133,9 @@ steps:
     type: llm
     pre_condition: '{{enableLlmWafBypass}} && file_exists("{{wafDetectionFile}}")'
     log: "Generating WAF bypass strategies with LLM"
+    timeout: 300
+    on_error:
+      - action: continue
     messages:
       - role: system
         content: |

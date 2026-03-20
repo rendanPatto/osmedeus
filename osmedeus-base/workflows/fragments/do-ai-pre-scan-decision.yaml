@@ -84,6 +84,9 @@ steps:
     type: agent
     pre_condition: "{{enablePreScan}}"
     max_iterations: 8
+    timeout: 600
+    on_error:
+      - action: continue
     system_prompt: |
       你是一个智能安全侦察专家。
       你的任务是在大规模扫描之前，根据子域名特征预测高价值目标。

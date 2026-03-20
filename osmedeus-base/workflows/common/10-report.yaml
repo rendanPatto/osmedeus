@@ -316,6 +316,9 @@ steps:
     type: llm
     pre_condition: '{{enableLlmReport}}'
     log: "Generating executive summary with LLM"
+    timeout: 300
+    on_error:
+      - action: continue
     messages:
       - role: system
         content: |
@@ -356,6 +359,9 @@ steps:
     type: llm
     pre_condition: '{{enableLlmReport}} && file_exists("{{nucleiFile}}")'
     log: "Generating risk assessment with LLM"
+    timeout: 300
+    on_error:
+      - action: continue
     messages:
       - role: system
         content: |
@@ -395,6 +401,9 @@ steps:
     type: llm
     pre_condition: '{{enableLlmReport}}'
     log: "Generating remediation recommendations with LLM"
+    timeout: 300
+    on_error:
+      - action: continue
     messages:
       - role: system
         content: |
@@ -439,6 +448,9 @@ steps:
     type: llm
     pre_condition: '{{enableLlmAttackSurface}}'
     log: "Generating attack surface analysis with LLM"
+    timeout: 300
+    on_error:
+      - action: continue
     messages:
       - role: system
         content: |

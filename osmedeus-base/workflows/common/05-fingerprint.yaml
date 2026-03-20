@@ -228,6 +228,9 @@ steps:
     type: llm
     pre_condition: '{{enableLlmTechAttack}} && file_exists("{{httpFingerprintFile}}")'
     log: "Generating tech stack attack suggestions with LLM"
+    timeout: 300
+    on_error:
+      - action: continue
     messages:
       - role: system
         content: |

@@ -320,6 +320,9 @@ steps:
     type: agent
     pre_condition: "{{enableSemanticSearch}}"
     max_iterations: 5
+    timeout: 600
+    on_error:
+      - action: continue
     system_prompt: |
       你是一个语义搜索专家。
       你的任务是在已有的扫描数据中进行语义搜索，找到与查询相关的内容。

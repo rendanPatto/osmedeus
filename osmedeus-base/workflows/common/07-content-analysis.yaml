@@ -642,6 +642,9 @@ steps:
     type: llm
     pre_condition: '{{enableLlmSecretsAnalysis}} && (file_exists("{{jsSecretsFile}}") || file_exists("{{jsSecretsJsmapFile}}"))'
     log: "Analyzing discovered secrets with LLM"
+    timeout: 300
+    on_error:
+      - action: continue
     messages:
       - role: system
         content: |
@@ -685,6 +688,9 @@ steps:
     type: llm
     pre_condition: '{{enableLlmCodeReview}} && file_exists("{{jsUrlsFile}}") && file_length("{{jsUrlsFile}}") > 0'
     log: "Performing LLM code review on discovered JS files"
+    timeout: 300
+    on_error:
+      - action: continue
     messages:
       - role: system
         content: |
@@ -715,6 +721,9 @@ steps:
     type: llm
     pre_condition: '{{enableLlmJsApiExtract}} && file_exists("{{jsUrlsFile}}") && file_length("{{jsUrlsFile}}") > 0'
     log: "Extracting hidden API endpoints from JS files with LLM"
+    timeout: 300
+    on_error:
+      - action: continue
     messages:
       - role: system
         content: |
@@ -776,6 +785,9 @@ steps:
     type: llm
     pre_condition: '{{enableLlmSensitiveContext}} && (file_exists("{{jsSecretsFile}}") || file_exists("{{jsSecretsJsmapFile}}"))'
     log: "Analyzing sensitive info context with LLM"
+    timeout: 300
+    on_error:
+      - action: continue
     messages:
       - role: system
         content: |

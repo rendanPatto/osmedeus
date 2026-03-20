@@ -91,6 +91,9 @@ steps:
     type: agent
     pre_condition: "{{enableAttackChain}}"
     max_iterations: 8
+    timeout: 600
+    on_error:
+      - action: continue
     system_prompt: |
       你是一个资深红队专家，专注于攻击链分析和路径规划。
       你的任务是分析漏洞之间的关联性，识别可串联的攻击路径。

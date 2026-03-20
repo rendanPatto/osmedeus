@@ -111,6 +111,8 @@ steps:
     max_iterations: 10
     acp_config:
       write_enabled: false
+    on_error:
+      - action: continue
     messages:
       - role: system
         content: |
@@ -190,6 +192,8 @@ steps:
     cwd: "{{Output}}"
     allowed_paths:
       - "{{Output}}"
+    on_error:
+      - action: continue
     messages:
       - role: system
         content: |

@@ -790,6 +790,9 @@ steps:
     type: llm
     pre_condition: '{{enableLlmInjectionAnalysis}} && file_exists("{{urlNoDupesFile}}") && file_length("{{urlNoDupesFile}}") > 0'
     log: "Analyzing injection points with LLM"
+    timeout: 300
+    on_error:
+      - action: continue
     messages:
       - role: system
         content: |

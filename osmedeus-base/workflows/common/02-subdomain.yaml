@@ -324,6 +324,9 @@ steps:
     type: llm
     pre_condition: '{{enableLlmSubdomainAnalysis}} && file_exists("{{subdomainFile}}") && file_length("{{subdomainFile}}") > 0'
     log: "Analyzing subdomain values with LLM"
+    timeout: 300
+    on_error:
+      - action: continue
     messages:
       - role: system
         content: |
@@ -373,7 +376,11 @@ steps:
       echo "" >> {{llmSubdomainReport}}
       echo "**Generated:** $(date)" >> {{llmSubdomainReport}}
       echo "" >> {{llmSubdomainReport}}
-      echo "{{subdomain_analysis}}" >> {{llmSubdomainReport}}
+      if [ -n "{{subdomain_analysis}}" ]; then
+        echo "{{subdomain_analysis}}" >> {{llmSubdomainReport}}
+      else
+        echo "*LLM analysis was skipped or failed. Generating heuristic-based high-value subdomain list.*" >> {{llmSubdomainReport}}
+      fi
       grep -E '^(login|admin|api|dev|test|staging|internal|db|jenkins|git|monitor|portal|auth|sso|dashboard|console|manage|cpanel|vpn|intranet)' {{subdomainFile}} 2>/dev/null | sort -u > {{highValueSubsFile}} || true
       echo "[LLM-Subdomain] Identified $(wc -l < {{highValueSubsFile}} 2>/dev/null || echo 0) high-value subdomains"
     on_error:

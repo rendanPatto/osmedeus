@@ -63,6 +63,9 @@ steps:
     type: agent
     pre_condition: "{{enableWafBypass}}"
     max_iterations: 8
+    timeout: 600
+    on_error:
+      - action: continue
     system_prompt: |
       你是一个 WAF 规避专家。
       你的任务是分析目标网站的 WAF 特征，并生成个性化的规避策略。
