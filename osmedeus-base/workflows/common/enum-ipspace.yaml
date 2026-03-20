@@ -73,7 +73,7 @@ steps:
   - name: asn-discovery
     type: bash
     log: "Discovering ASN and IP ranges based on Target Second Level Domain"
-    pre_condition: '{{Org}} != ""'
+    pre_condition: 'typeof Org !== "undefined" && Org !== ""'
     commands:
       - 'echo "{{Org}}" | timeout -k 1m {{ipTimeout}} metabigor netd -o {{Output}}/ipspace/{{TargetSpace}}-range.txt >/dev/null 2>&1'
     on_error: 

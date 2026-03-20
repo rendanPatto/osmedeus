@@ -508,7 +508,7 @@ steps:
   - name: asn-discovery
     type: bash
     log: "Discovering ASN and IP ranges based on Organization name"
-    pre_condition: '{{Org}} != "" && {{Org}} != nil'
+    pre_condition: 'typeof Org !== "undefined" && Org !== ""'
     command: |
       echo "{{Org}}" | timeout -k 1m {{ipTimeout}} metabigor net --org -o {{Output}}/ipspace/{{TargetSpace}}-range.txt 2>/dev/null || true
     on_error: 
