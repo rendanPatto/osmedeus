@@ -72,6 +72,9 @@ steps:
     type: agent
     pre_condition: "{{enableAttackPathPlanning}} && {{enableAttackChain}}"
     max_iterations: 5
+    timeout: 600
+    on_error:
+      - action: continue
     system_prompt: |
       你是一个渗透测试专家，专长于攻击链(Attack Chain)分析。
       你的任务是识别可串联的漏洞，构建完整的攻击路径。
@@ -147,6 +150,9 @@ steps:
     type: agent
     pre_condition: "{{enableAttackPathPlanning}}"
     max_iterations: 8
+    timeout: 600
+    on_error:
+      - action: continue
     system_prompt: |
       你是一个资深的渗透测试专家和红队成员。
       你的任务是基于全面的扫描结果，制定详细的攻击路径规划和攻击链分析。
@@ -283,6 +289,9 @@ steps:
     type: agent
     pre_condition: "{{enableAttackPathPlanning}}"
     max_iterations: 2
+    timeout: 600
+    on_error:
+      - action: continue
     system_prompt: |
       你是一个渗透测试清单生成专家。
       基于攻击规划，生成可执行的操作检查清单。

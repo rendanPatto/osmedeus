@@ -101,6 +101,9 @@ steps:
     type: agent
     pre_condition: "{{enableUnifiedAnalysis}}"
     max_iterations: 12
+    timeout: 600
+    on_error:
+      - action: continue
     system_prompt: |
       你是一个资深渗透测试专家和安全分析师。
       你的任务是对目标进行综合分析，包括：

@@ -97,6 +97,9 @@ steps:
     type: agent
     pre_condition: "{{enableAiDecision}}"
     max_iterations: 5
+    timeout: 600
+    on_error:
+      - action: continue
     system_prompt: |
       你是一个智能安全扫描策略分析师。
       你的任务是根据当前的扫描结果，分析目标的安全态势，并生成结构化的决策建议。
