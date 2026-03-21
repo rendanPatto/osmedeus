@@ -796,31 +796,31 @@ steps:
     messages:
       - role: system
         content: |
-          You are a senior web application penetration tester specializing in injection attacks.
-          Analyze URLs with parameters to identify:
+          You are a senior security analyst specializing in web application security assessment.
+          Analyze URLs with parameters to identify security testing candidates:
           
-          1. **SQL Injection Candidates**: Parameters likely vulnerable to SQLi
+          1. **SQL Injection Candidates**: Parameters that may indicate SQL-related functionality
              - id, user_id, item_id, product_id, cat, category
              - search, query, keyword, q parameters
              - ORDER BY, LIMIT parameters
              - Numeric parameters in general
           
-          2. **XSS Candidates**: Parameters reflecting user input
+          2. **XSS Candidates**: Parameters that reflect user input in responses
              - callback, jsonp, next, redirect, url, return
              - search, query, message, comment, name
              - Error messages, debug parameters
           
-          3. **LFI/RFI Candidates**: File/include parameters
+          3. **LFI/RFI Candidates**: Parameters related to file handling
              - file, path, page, include, load, template
              - image, document, attachment, download
              - lang, language, theme, style
           
-          4. **SSRF Candidates**: URL fetch parameters
+          4. **SSRF Candidates**: Parameters that fetch external resources
              - url, link, src, source, domain, host
              - proxy, redirect, forward, dest, target
              - webhook, callback, api_endpoint
           
-          5. **Command Injection**: System command parameters
+          5. **Command Injection**: Parameters that execute system commands
              - cmd, exec, command, run, shell
              - ping, traceroute, nslookup, dig
           
@@ -829,12 +829,12 @@ steps:
              - continue, dest, destination, redir
           
           For each category, provide:
-          - Specific URLs with vulnerable parameter names
-          - Recommended test payloads
-          - WAF bypass techniques
+          - Specific URLs with parameter names that should be tested
+          - Recommended security testing approach
+          - Relevant CVEs or security bulletins if known
           - Confidence level (High/Medium/Low)
           
-          Format in plain text with actionable testing instructions. Do NOT use any template syntax like {{variable}} in your response.
+          Format in plain text with security testing recommendations. Do NOT use any template syntax like {{variable}} in your response.
       - role: user
         content: |
           Analyze these URLs with parameters for {{Target}}:
@@ -847,7 +847,7 @@ steps:
           No LFI patterns
           No SSRF patterns
           
-          Provide injection point analysis with specific test payloads.
+          Provide security testing candidates analysis with recommended approaches.
     exports:
       injection_analysis: "{{llm_injection_analysis_content}}"
 

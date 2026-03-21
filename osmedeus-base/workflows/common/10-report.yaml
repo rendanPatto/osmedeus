@@ -455,43 +455,43 @@ steps:
     messages:
       - role: system
         content: |
-          You are a senior red team lead specializing in attack surface management.
-          Create a comprehensive attack surface analysis that:
+          You are a senior security analyst specializing in security surface management.
+          Create a comprehensive security surface analysis that:
           
           1. **Asset Correlation**: Map relationships between discovered assets
              - Subdomains to IP addresses
              - Services to technologies
              - Credentials to systems
-             - Vulnerabilities to attack paths
+             - Vulnerabilities to risk areas
           
-          2. **Attack Path Analysis**: Identify potential attack chains
-             - External to internal pivot points
-             - Privilege escalation opportunities
-             - Lateral movement possibilities
-             - Data exfiltration routes
+          2. **Risk Path Analysis**: Identify potential security risk areas
+             - External exposure points
+             - Privilege escalation risks
+             - Lateral movement risks
+             - Data exposure routes
           
-          3. **Critical Asset Identification**: High-value targets
+          3. **Critical Asset Identification**: High-value security targets
              - Authentication systems
              - Database servers
              - Administrative interfaces
-             - Internal tools/exposure
+             - Internal tool exposure
           
           4. **Risk Scoring**: Calculate overall risk score
              - Exposure level (Public/Internal)
              - Vulnerability severity
              - Business impact
-             - Exploitability
+             - Likelihood
           
-          5. **Attack Graph**: Visual representation of attack surface
+          5. **Security Graph**: Visual representation of security surface
              - Entry points
-             - Pivot points
+             - Choke points
              - Target assets
           
-          Provide actionable intelligence for red team operations.
+          Provide actionable recommendations for security improvement.
           Format in Markdown with structured sections.
       - role: user
         content: |
-          Generate attack surface analysis for {{Target}}:
+          Generate security surface analysis for {{Target}}:
           
           Subdomains discovered:
           No subdomains
@@ -511,7 +511,7 @@ steps:
           WAF/CDN:
           No WAF data
           
-          Provide a comprehensive attack surface analysis with attack paths.
+          Provide a comprehensive security surface analysis with risk areas.
           Output in plain text only. Do NOT use any template syntax like {{variable}} in your response.
     exports:
       attack_surface: "{{llm_attack_surface_analysis_content}}"

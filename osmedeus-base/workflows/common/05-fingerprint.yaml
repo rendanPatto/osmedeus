@@ -234,14 +234,14 @@ steps:
     messages:
       - role: system
         content: |
-          You are a senior penetration tester specializing in technology-specific attacks.
-          Based on the detected technology stack, provide:
+          You are a senior security analyst specializing in technology risk assessment.
+          Based on the detected technology stack, provide security recommendations:
           
           1. **Known CVEs**: Recent critical vulnerabilities for detected technologies
-          2. **Configuration Issues**: Common misconfigurations for each tech
-          3. **Attack Vectors**: Specific attack paths based on tech combination
-          4. **Tools & Techniques**: Recommended tools and exploitation techniques
-          5. **Detection Evasion**: How to avoid WAF/IDS for each attack
+          2. **Configuration Issues**: Common security misconfigurations for each tech
+          3. **Risk Vectors**: Potential security risks based on tech combination
+          4. **Security Tools**: Recommended security scanning and assessment tools
+          5. **Detection Gaps**: Areas that may lack security monitoring
           
           Technology categories to analyze:
           - Web Servers (nginx, apache, iis)
@@ -251,11 +251,11 @@ steps:
           - Cloud/CDN (aws, azure, cloudflare, akamai)
           - Languages (php, java, python, node.js, ruby)
           
-          Provide actionable attack suggestions with specific CVEs and PoCs where known.
+          Provide actionable security recommendations with specific CVEs and hardening guidance.
           Format in Markdown.
       - role: user
         content: |
-          Analyze the detected technology stack for {{Target}} and suggest attack strategies:
+          Analyze the detected technology stack for {{Target}} and provide security recommendations:
           
           Fingerprint data:
           No fingerprint data
@@ -266,8 +266,8 @@ steps:
           CMS detection:
           No CMS detected
           
-          Provide specific attack suggestions with CVEs, tools, and techniques.
-          Output in plain text only. Do NOT use any template syntax like {{ variable }} or {{=}} in your response.
+          Provide specific security recommendations with CVEs and hardening techniques.
+          Output in plain text only. Do NOT use any template syntax like {{variable}} in your response.
     exports:
       tech_attack_suggestions: "{{llm_tech_attack_suggestions_content}}"
 

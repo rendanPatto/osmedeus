@@ -1111,10 +1111,10 @@ steps:
       - role: system
         content: |
           You are a security risk analyst. Prioritize vulnerabilities based on:
-          1. Severity and exploitability
+          1. Severity and risk level
           2. Business impact (data exposure, service disruption)
-          3. Attack complexity
-          4. Likelihood of exploitation
+          3. Remediation complexity
+          4. Priority for remediation
           
           Return JSON with "priority_order" array containing finding IDs sorted by risk (highest first).
       - role: user
@@ -1133,41 +1133,42 @@ steps:
   - name: llm-waf-bypass-strategy
     type: llm
     pre_condition: '{{enableLlmWafBypass}} && file_exists("{{wafDetectionFile}}")'
-    log: "Generating WAF bypass strategies with LLM"
+    log: "Generating WAF assessment with LLM"
     timeout: 300
     on_error:
       - action: continue
     messages:
       - role: system
         content: |
-          You are a senior red team operator specializing in WAF evasion techniques.
-          Based on the detected WAF, provide specific bypass strategies:
+          You are a senior security analyst specializing in WAF security assessment.
+          Based on the detected WAF, provide security recommendations:
           
           1. **WAF Fingerprint Analysis**: Identify the WAF vendor and version
           
-          2. **Bypass Techniques**: Specific methods for each WAF type
-             - Cloudflare: Unicode encoding, chunked encoding, HTTP smuggling
-             - Akamai: Case variation, null bytes, double encoding
-             - Imperva: Comment insertion, alternative syntax
-             - ModSecurity: Rule-specific bypasses
-             - AWS WAF: JSON parsing tricks, multipart encoding
+          2. **Security Configuration Review**: Configuration recommendations for each WAF type
+             - Cloudflare: Security level settings, bot management, rate limiting
+             - Akamai: Security policies, adaptive security, IP armor
+             - Imperva: Security rules, threat protection, DDoS mitigation
+             - ModSecurity: Rule management, CRS configuration, logging
+             - AWS WAF: Rule groups, IP sets, rate-based rules
           
-          3. **Payload Obfuscation**: Techniques for each attack type
-             - SQLi: Alternative whitespace, case switching, encoding
-             - XSS: JavaScript template literals, event handlers
-             - RCE: Command chaining alternatives, encoding
+          3. **Security Coverage Assessment**: Identify potential blind spots
+             - SQLi protection effectiveness
+             - XSS protection coverage
+             - RCE protection mechanisms
           
-          4. **Request Manipulation**: HTTP-level bypasses
-             - Header injection, HTTP version manipulation
-             - Content-Type switching, encoding tricks
+          4. **Monitoring Recommendations**: Logging and alerting needs
+             - Key events to monitor
+             - Alert thresholds
+             - Correlation rules
           
-          5. **Rate Limit Bypass**: Timing and distribution strategies
+          5. **Additional Protection**: Complementary security controls to consider
           
-          Provide specific, tested payloads and techniques.
-          Format in Markdown with code examples.
+          Provide specific security recommendations and configuration guidance.
+          Format in Markdown.
       - role: user
         content: |
-          Generate WAF bypass strategies for {{Target}}:
+          Generate WAF security assessment for {{Target}}:
           
           WAF Detection Results:
           No WAF detected

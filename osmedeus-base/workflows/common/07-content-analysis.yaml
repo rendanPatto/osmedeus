@@ -651,8 +651,8 @@ steps:
           You are a senior security analyst specializing in secret detection and credential exposure.
           Analyze the discovered secrets and provide:
           1. Risk level for each secret type (Critical/High/Medium/Low)
-          2. Potential impact if exploited
-          3. Recommended immediate actions
+          2. Potential security impact if exposed
+          3. Recommended immediate remediation actions
           4. False positive likelihood assessment
           
           Format in Markdown with clear categorization.
@@ -696,7 +696,7 @@ steps:
       - role: system
         content: |
           You are a senior application security engineer. Review JavaScript code for security issues:
-          1. Authentication/Authorization bypasses
+          1. Authentication/Authorization issues
           2. Sensitive data exposure
           3. Insecure API endpoints
           4. Client-side validation weaknesses
@@ -728,26 +728,26 @@ steps:
     messages:
       - role: system
         content: |
-          You are a senior penetration tester specializing in API discovery and JavaScript analysis.
-          Analyze the JavaScript files and extract:
+          You are a senior security analyst specializing in API discovery and JavaScript security analysis.
+          Analyze the JavaScript files and identify security-relevant endpoints:
           
-          1. **Hidden API Endpoints**: REST, GraphQL, WebSocket endpoints not obvious from UI
+          1. **API Endpoints**: REST, GraphQL, WebSocket endpoints
           2. **API Versioning**: v1, v2, beta endpoints
-          3. **Parameter Pollution Points**: Endpoints accepting multiple parameters
+          3. **Parameter Patterns**: Endpoints with complex parameter structures
           4. **Debug/Test Endpoints**: /debug, /test, /internal paths
-          5. **Authentication Bypass Candidates**: Endpoints missing auth checks
+          5. **Authentication Endpoints**: Login, logout, token refresh
           6. **Sensitive Operations**: Password reset, user management, admin functions
           
           Output format:
           - List each endpoint with HTTP method
           - Identify potential parameters (from URL patterns, fetch calls)
-          - Rate exploitability (High/Medium/Low)
-          - Suggest specific test payloads where applicable
+          - Rate security relevance (High/Medium/Low)
+          - Note any security concerns observed
           
-          Format in Markdown with actionable findings.
+          Format in Markdown with findings.
       - role: user
         content: |
-          Analyze JavaScript files for {{Target}} to discover hidden API endpoints:
+          Analyze JavaScript files for {{Target}} to identify API endpoints:
           
           JS URLs discovered:
           {{readFile("{{jsUrlsFile}}")}}
