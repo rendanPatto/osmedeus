@@ -661,10 +661,10 @@ steps:
           Analyze these discovered secrets from JavaScript analysis for {{Target}}:
           
           Secrets from JS files:
-          {{readFile("{{jsSecretsFile}}") if file_exists("{{jsSecretsFile}}") else "No secrets found"}}
+          No secrets found
           
           Secrets from Source maps:
-          {{readFile("{{jsSecretsJsmapFile}}") if file_exists("{{jsSecretsJsmapFile}}") else "No secrets found"}}
+          No secrets found
           
           Provide a risk assessment and prioritize findings.
           Output in plain text only. Do NOT use any template syntax like {{variable}} in your response.
@@ -711,7 +711,7 @@ steps:
           {{readFile("{{jsUrlsFile}}")}}
           
           Endpoints found in JS:
-          {{readFile("{{jsEndpointsFile}}") if file_exists("{{jsEndpointsFile}}") else "No endpoints data"}}
+          No endpoints data
     exports:
       code_review: "{{llm_code_review_content}}"
 
@@ -753,10 +753,10 @@ steps:
           {{readFile("{{jsUrlsFile}}")}}
           
           Known endpoints from JS analysis:
-          {{readFile("{{jsEndpointsFile}}") if file_exists("{{jsEndpointsFile}}") else "No endpoints data"}}
+          No endpoints data
           
           URL parameters found:
-          {{readFile("{{gfDir}}/params-{{TargetSpace}}.txt") if file_exists("{{gfDir}}/params-{{TargetSpace}}.txt") else "No params data"}}
+          No params data
           
           Provide actionable API endpoint findings for penetration testing.
           Output in plain text only. Do NOT use any template syntax like {{variable}} in your response.
@@ -815,13 +815,13 @@ steps:
           Analyze the exploitability of discovered sensitive information for {{Target}}:
           
           Secrets from JS files:
-          {{readFile("{{jsSecretsFile}}") if file_exists("{{jsSecretsFile}}") else "No secrets found"}}
+          No secrets found
           
           Secrets from Source maps:
-          {{readFile("{{jsSecretsJsmapFile}}") if file_exists("{{jsSecretsJsmapFile}}") else "No secrets found"}}
+          No secrets found
           
           Known endpoints context:
-          {{readFile("{{jsEndpointsFile}}") if file_exists("{{jsEndpointsFile}}") else "No endpoints data"}}
+          No endpoints data
           
           Provide an exploitation-focused analysis with actionable next steps.
           Output in plain text only. Do NOT use any template syntax like {{variable}} in your response.

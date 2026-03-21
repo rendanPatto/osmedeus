@@ -335,11 +335,11 @@ steps:
         content: |
           Generate an executive summary for security assessment of {{Target}}.
           
-          Subdomains discovered: {{file_length("{{subdomainFile}}") if file_exists("{{subdomainFile}}") else 0}}
-          Live hosts: {{file_length("{{httpFile}}") if file_exists("{{httpFile}}") else 0}}
-          URLs collected: {{file_length("{{spiderFile}}") if file_exists("{{spiderFile}}") else 0}}
+          Subdomains discovered: 0
+          Live hosts: 0
+          URLs collected: 0
           
-          {{readFile("{{nucleiFile}}") if file_exists("{{nucleiFile}}") else "No vulnerability data"}}
+          No vulnerability data
     exports:
       executive_summary: "{{llm_executive_summary_content}}"
 
@@ -381,7 +381,7 @@ steps:
           {{readFile("{{nucleiFile}}")}}
           
           Fingerprint data:
-          {{readFile("{{fingerprintFile}}") if file_exists("{{fingerprintFile}}") else "No fingerprint data"}}
+          No fingerprint data
     exports:
       risk_assessment: "{{llm_risk_assessment_content}}"
 
@@ -420,13 +420,13 @@ steps:
           Generate remediation recommendations for {{Target}}:
           
           Vulnerabilities:
-          {{readFile("{{nucleiFile}}") if file_exists("{{nucleiFile}}") else "No vulnerability data"}}
+          No vulnerability data
           
           Secrets found:
-          {{readFile("{{secretFile}}") if file_exists("{{secretFile}}") else "No secrets data"}}
+          No secrets data
           
           Misconfigurations:
-          {{readFile("{{websocketMisconfigFile}}") if file_exists("{{websocketMisconfigFile}}") else "No misconfig data"}}
+          No misconfig data
     exports:
       recommendations: "{{llm_recommendations_content}}"
 
@@ -494,22 +494,22 @@ steps:
           Generate attack surface analysis for {{Target}}:
           
           Subdomains discovered:
-          {{readFile("{{subdomainFile}}") if file_exists("{{subdomainFile}}") else "No subdomains"}}
+          No subdomains
           
           HTTP services:
-          {{readFile("{{httpFile}}") if file_exists("{{httpFile}}") else "No HTTP services"}}
+          No HTTP services
           
           Technologies detected:
-          {{readFile("{{httpFingerprintFile}}") if file_exists("{{httpFingerprintFile}}") else "No fingerprint data"}}
+          No fingerprint data
           
           Vulnerabilities found:
-          {{readFile("{{nucleiFile}}") if file_exists("{{nucleiFile}}") else "No vulnerabilities"}}
+          No vulnerabilities
           
           Secrets/credentials:
-          {{readFile("{{secretsFile}}") if file_exists("{{secretsFile}}") else "No secrets"}}
+          No secrets
           
           WAF/CDN:
-          {{readFile("{{wafFile}}") if file_exists("{{wafFile}}") else "No WAF data"}}
+          No WAF data
           
           Provide a comprehensive attack surface analysis with attack paths.
           Output in plain text only. Do NOT use any template syntax like {{variable}} in your response.

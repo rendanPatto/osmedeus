@@ -1170,13 +1170,13 @@ steps:
           Generate WAF bypass strategies for {{Target}}:
           
           WAF Detection Results:
-          {{readFile("{{wafDetectionFile}}") if file_exists("{{wafDetectionFile}}") else "No WAF detected"}}
+          No WAF detected
           
           Blocked requests patterns (if any):
-          {{readFile("{{Output}}/links/blocked-requests-{{TargetSpace}}.txt") if file_exists("{{Output}}/links/blocked-requests-{{TargetSpace}}.txt") else "No blocked request data"}}
+          No blocked request data
           
           Known vulnerabilities to test:
-          {{readFile("{{nucleiOutputJsonl}}") if file_exists("{{nucleiOutputJsonl}}") else "No vulnerability data"}}
+          No vulnerability data
           
           Provide specific bypass techniques for this target.
           Output in plain text only. Do NOT use any template syntax like {{variable}} in your response.

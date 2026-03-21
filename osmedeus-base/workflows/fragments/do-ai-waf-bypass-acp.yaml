@@ -74,19 +74,13 @@ steps:
           请分析目标 {{Target}} 的 WAF 特征，生成规避策略。
 
           ## HTTP 探测结果
-          {% if file_exists("{{httpFile}}") %}
-          {{read_lines("{{httpFile}}")[:30]}}
-          {% else %}无{% endif %}
+          {{readLines("{{httpFile}}")}}
 
           ## 指纹信息
-          {% if file_exists("{{fingerprintFile}}") %}
-          {{read_lines("{{fingerprintFile}}")[:20]}}
-          {% else %}未知{% endif %}
+          {{readLines("{{fingerprintFile}}")}}
 
           ## 已检测的 WAF
-          {% if file_exists("{{wafFile}}") %}
-          {{read_lines("{{wafFile}}")[:10]}}
-          {% else %}未检测到 WAF{% endif %}
+          {{readLines("{{wafFile}}")}}
 
           请输出 JSON 格式的 WAF 规避策略保存到 {{wafBypassOutput}}：
           ```json

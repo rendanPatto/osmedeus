@@ -121,9 +121,7 @@ steps:
           Perform security code review for all repositories in the current directory.
           
           Repositories found:
-          {% if file_exists("{{Output}}/ai-analysis/repo-list.txt") %}
-          {{read_lines("{{Output}}/ai-analysis/repo-list.txt")}}
-          {% endif %}
+          无可用仓库列表
           
           For each repository, provide:
           1. Repository name and purpose
@@ -164,17 +162,7 @@ steps:
 
       ## Individual Repository Reports
 
-      {% if file_exists("{{Output}}/ai-analysis/repo-list.txt") %}
-      {% for repo in read_lines("{{Output}}/ai-analysis/repo-list.txt") %}
-      ### $(basename "{{repo}}")
-      {% if file_exists("{{Output}}/ai-analysis/repo-reports/$(basename '{{repo}}').md") %}
-      {{readFile("{{Output}}/ai-analysis/repo-reports/$(basename '{{repo}}').md")}}
-      {% else %}
-      *No detailed report available*
-      {% endif %}
-      
-      {% endfor %}
-      {% endif %}
+      *仓库列表不可用*
 
       ---
 

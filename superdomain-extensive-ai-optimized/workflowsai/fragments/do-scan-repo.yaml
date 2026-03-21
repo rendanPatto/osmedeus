@@ -385,7 +385,7 @@ steps:
           Detected language: {{repoLanguage}}
 
           Previous scan results for context:
-          {{readFile("{{semgrepJson}}") if file_exists("{{semgrepJson}}") else "No semgrep results"}}
+          No semgrep results
 
           Focus on HIGH and MEDIUM findings only. Each finding should be actionable.
     exports:
@@ -431,13 +431,13 @@ steps:
           Correlate findings from these SAST scan results for {{Target}}:
 
           Semgrep results:
-          {{readFile("{{semgrepSarif}}") if file_exists("{{semgrepSarif}}") else "No semgrep results"}}
+          No semgrep results
 
           Kingfisher secrets:
-          {{readFile("{{kingfisherSarif}}") if file_exists("{{kingfisherSarif}}") else "No kingfisher results"}}
+          No kingfisher results
 
           Trivy results:
-          {{readFile("{{trivySarif}}") if file_exists("{{trivySarif}}") else "No trivy results"}}
+          No trivy results
     response_format:
       type: json_object
     exports:

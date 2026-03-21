@@ -202,19 +202,13 @@ steps:
       {{searchQuery}}
 
       ## 漏洞索引数据
-      {% if file_exists("{{semanticIndexDir}}/vulns-index.txt") %}
-      {{read_lines("{{semanticIndexDir}}/vulns-index.txt")[:50]}}
-      {% else %}暂无漏洞数据{% endif %}
+      暂无漏洞数据
 
       ## 技术栈索引
-      {% if file_exists("{{semanticIndexDir}}/tech-index.txt") %}
-      {{read_lines("{{semanticIndexDir}}/tech-index.txt")[:20]}}
-      {% else %}暂无技术栈数据{% endif %}
+      暂无技术栈数据
 
       ## 子域名索引
-      {% if file_exists("{{semanticIndexDir}}/subdomains-index.txt") %}
-      {{read_lines("{{semanticIndexDir}}/subdomains-index.txt")[:20]}}
-      {% else %}暂无子域名数据{% endif %}
+      暂无子域名数据
 
       请输出 JSON 格式的搜索结果：
       ```json

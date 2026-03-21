@@ -836,13 +836,10 @@ steps:
         content: |
           Analyze these URLs with parameters for {{Target}}:
           
-          {{readFile("{{urlNoDupesFile}}") if file_exists("{{urlNoDupesFile}}") else "No URLs"}}
+          URL data available in: {{urlNoDupesFile}}
           
           Additional context from GF patterns:
-          {{readFile("{{Output}}/gf/sqli-{{TargetSpace}}.txt") if file_exists("{{Output}}/gf/sqli-{{TargetSpace}}.txt") else "No SQLi patterns"}}
-          {{readFile("{{Output}}/gf/xss-{{TargetSpace}}.txt") if file_exists("{{Output}}/gf/xss-{{TargetSpace}}.txt") else "No XSS patterns"}}
-          {{readFile("{{Output}}/gf/lfi-{{TargetSpace}}.txt") if file_exists("{{Output}}/gf/lfi-{{TargetSpace}}.txt") else "No LFI patterns"}}
-          {{readFile("{{Output}}/gf/ssrf-{{TargetSpace}}.txt") if file_exists("{{Output}}/gf/ssrf-{{TargetSpace}}.txt") else "No SSRF patterns"}}
+          See GF pattern files in {{Output}}/gf/
           
           Provide injection point analysis with specific test payloads.
     exports:

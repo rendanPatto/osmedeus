@@ -77,10 +77,8 @@ steps:
         content: |
           请审查目标 {{Target}} 的代码，识别安全漏洞。
 
-          {% if file_exists("{{vulnFindingsFile}}") %}
           ## 已发现的漏洞
-          {{read_lines("{{vulnFindingsFile}}")[:50]}}
-          {% else %}无已发现漏洞{% endif %}
+          {{readLines("{{vulnFindingsFile}}")}}
 
           请输出 JSON 格式的代码审查结果保存到 {{codeReviewOutput}}：
           ```json

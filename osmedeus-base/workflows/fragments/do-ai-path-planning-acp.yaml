@@ -135,29 +135,19 @@ steps:
           请基于以下攻击链分析，为目标 {{Target}} 生成详细的执行计划。
 
           ## 攻击链分析结果
-          {% if file_exists("{{attackChainFile}}") %}
-          {{read_lines("{{attackChainFile}}")[:80]}}
-          {% else %}无可用攻击链数据{% endif %}
+          {{readLines("{{attackChainFile}}")}}
 
           ## 已验证漏洞
-          {% if file_exists("{{vulnValidationFile}}") %}
-          {{read_lines("{{vulnValidationFile}}")[:30]}}
-          {% else %}无{% endif %}
+          {{readLines("{{vulnValidationFile}}")}}
 
           ## 入口点
-          {% if file_exists("{{entryPointsFile}}") %}
-          {{read_lines("{{entryPointsFile}}")[:20]}}
-          {% else %}无{% endif %}
+          {{readLines("{{entryPointsFile}}")}}
 
           ## 技术栈
-          {% if file_exists("{{fingerprintFile}}") %}
-          {{read_lines("{{fingerprintFile}}")[:10]}}
-          {% else %}未知{% endif %}
+          {{readLines("{{fingerprintFile}}")}}
 
           ## WAF 状态
-          {% if file_exists("{{wafFile}}") %}
-          {{read_lines("{{wafFile}}")[:10]}}
-          {% else %}未检测到 WAF{% endif %}
+          {{readLines("{{wafFile}}")}}
 
           请输出 JSON 格式的攻击计划保存到 {{pathPlanningOutput}}：
           ```json

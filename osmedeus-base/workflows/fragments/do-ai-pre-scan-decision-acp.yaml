@@ -74,19 +74,13 @@ steps:
           请分析目标 {{Target}} 的子域名列表，识别高价值扫描目标。
 
           ## 子域名列表
-          {% if file_exists("{{subdomainFile}}") %}
-          {{read_lines("{{subdomainFile}}")[:100]}}
-          {% else %}无可用子域名数据{% endif %}
+          {{readLines("{{subdomainFile}}")}}
 
           ## 已解析主机
-          {% if file_exists("{{resolvedFile}}") %}
-          {{read_lines("{{resolvedFile}}")[:50]}}
-          {% else %}无{% endif %}
+          {{readLines("{{resolvedFile}}")}}
 
           ## OSINT 信息
-          {% if file_exists("{{osintFile}}") %}
-          {{read_lines("{{osintFile}}")[:20]}}
-          {% else %}无{% endif %}
+          {{readLines("{{osintFile}}")}}
 
           请输出 JSON 格式的预扫描决策保存到 {{preScanOutput}}：
           ```json

@@ -123,9 +123,7 @@ steps:
           Perform security code review for all repositories in the current directory.
           
           Repositories found:
-          {% if file_exists("{{Output}}/ai-analysis/repo-list.txt") %}
           {{read_lines("{{Output}}/ai-analysis/repo-list.txt")}}
-          {% endif %}
           
           For each repository, provide:
           1. Repository name and purpose
@@ -154,11 +152,7 @@ steps:
       EOF
       
       # 添加 Agent 审查结果
-      {% if iflowcli_review is defined %}
       {{iflowcli_review}}
-      {% else %}
-      *No Agent review results available*
-      {% endif %}
       
       cat >> {{iflowcliReportOutput}} << 'EOF'
 
@@ -166,17 +160,7 @@ steps:
 
       ## Individual Repository Reports
 
-      {% if file_exists("{{Output}}/ai-analysis/repo-list.txt") %}
-      {% for repo in read_lines("{{Output}}/ai-analysis/repo-list.txt") %}
-      ### $(basename "{{repo}}")
-      {% if file_exists("{{Output}}/ai-analysis/repo-reports/$(basename '{{repo}}').md") %}
-      {{readFile("{{Output}}/ai-analysis/repo-reports/$(basename '{{repo}}').md")}}
-      {% else %}
-      *No detailed report available*
-      {% endif %}
-      
-      {% endfor %}
-      {% endif %}
+      *Repository reports are available in {{Output}}/ai-analysis/repo-reports/*
 
       ---
 

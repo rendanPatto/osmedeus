@@ -154,44 +154,28 @@ steps:
           请分析目标 {{Target}} 的漏洞数据，识别可串联的攻击链。
 
           ## 技术栈
-          {% if file_exists("{{fingerprintFile}}") %}
-          {{read_lines("{{fingerprintFile}}")[:10]}}
-          {% else %}未知{% endif %}
+          {{readLines("{{fingerprintFile}}")}}
 
           ## 已验证漏洞（优先使用）
-          {% if file_exists("{{vulnValidationFile}}") %}
-          {{read_lines("{{vulnValidationFile}}")[:50]}}
-          {% else %}无验证数据，使用原始扫描结果{% endif %}
+          {{readLines("{{vulnValidationFile}}")}}
 
           ## Critical 漏洞
-          {% if file_exists("{{nucleiCriticalFile}}") %}
-          {{read_lines("{{nucleiCriticalFile}}")[:10]}}
-          {% else %}无{% endif %}
+          {{readLines("{{nucleiCriticalFile}}")}}
 
           ## High 漏洞
-          {% if file_exists("{{nucleiHighFile}}") %}
-          {{read_lines("{{nucleiHighFile}}")[:10]}}
-          {% else %}无{% endif %}
+          {{readLines("{{nucleiHighFile}}")}}
 
           ## Secrets
-          {% if file_exists("{{secretsFile}}") %}
-          {{read_lines("{{secretsFile}}")[:5]}}
-          {% else %}无{% endif %}
+          {{readLines("{{secretsFile}}")}}
 
           ## SQLi
-          {% if file_exists("{{sqliFile}}") %}
-          {{read_lines("{{sqliFile}}")[:5]}}
-          {% else %}无{% endif %}
+          {{readLines("{{sqliFile}}")}}
 
           ## Takeover
-          {% if file_exists("{{takeoverFile}}") %}
-          {{read_lines("{{takeoverFile}}")[:5]}}
-          {% else %}无{% endif %}
+          {{readLines("{{takeoverFile}}")}}
 
           ## 已确认可利用的 URL
-          {% if file_exists("{{confirmedUrlsFile}}") %}
-          {{read_lines("{{confirmedUrlsFile}}")[:20]}}
-          {% else %}无{% endif %}
+          {{readLines("{{confirmedUrlsFile}}")}}
 
           请输出 JSON 格式的攻击链分析保存到 {{attackChainOutput}}：
           ```json

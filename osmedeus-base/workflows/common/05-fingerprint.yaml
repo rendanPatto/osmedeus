@@ -258,13 +258,13 @@ steps:
           Analyze the detected technology stack for {{Target}} and suggest attack strategies:
           
           Fingerprint data:
-          {{readFile("{{httpFingerprintFile}}") if file_exists("{{httpFingerprintFile}}") else "No fingerprint data"}}
+          No fingerprint data
           
           WAF detection:
-          {{readFile("{{wafOutput}}") if file_exists("{{wafOutput}}") else "No WAF detected"}}
+          No WAF detected
           
           CMS detection:
-          {{readFile("{{cmsOutput}}") if file_exists("{{cmsOutput}}") else "No CMS detected"}}
+          No CMS detected
           
           Provide specific attack suggestions with CVEs, tools, and techniques.
           Output in plain text only. Do NOT use any template syntax like {{variable}} or {{= }} in your response.
