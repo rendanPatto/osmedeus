@@ -658,10 +658,10 @@ steps:
           Analyze these discovered secrets from JavaScript analysis for {{Target}}:
           
           Secrets from JS files:
-          No secrets found
+          {{readFile("{{jsSecretsFile}}") if file_exists("{{jsSecretsFile}}") else "No secrets found"}}
           
           Secrets from Source maps:
-          No secrets found
+          {{readFile("{{jsSecretsJsmapFile}}") if file_exists("{{jsSecretsJsmapFile}}") else "No secrets found"}}
           
           Provide a risk assessment and prioritize findings.
     exports:
@@ -704,7 +704,7 @@ steps:
           {{readFile("{{jsUrlsFile}}")}}
           
           Endpoints found in JS:
-          No endpoints data
+          {{readFile("{{jsEndpointsFile}}") if file_exists("{{jsEndpointsFile}}") else "No endpoints data"}}
     exports:
       code_review: "{{llm_code_review_content}}"
 
@@ -743,10 +743,10 @@ steps:
           {{readFile("{{jsUrlsFile}}")}}
           
           Known endpoints from JS analysis:
-          No endpoints data
+          {{readFile("{{jsEndpointsFile}}") if file_exists("{{jsEndpointsFile}}") else "No endpoints data"}}
           
           URL parameters found:
-          No params data
+          {{readFile("{{gfDir}}/params-{{TargetSpace}}.txt") if file_exists("{{gfDir}}/params-{{TargetSpace}}.txt") else "No params data"}}
           
           Provide actionable API endpoint findings for penetration testing.
     exports:
@@ -801,13 +801,13 @@ steps:
           Analyze the exploitability of discovered sensitive information for {{Target}}:
           
           Secrets from JS files:
-          No secrets found
+          {{readFile("{{jsSecretsFile}}") if file_exists("{{jsSecretsFile}}") else "No secrets found"}}
           
           Secrets from Source maps:
-          No secrets found
+          {{readFile("{{jsSecretsJsmapFile}}") if file_exists("{{jsSecretsJsmapFile}}") else "No secrets found"}}
           
           Known endpoints context:
-          No endpoints data
+          {{readFile("{{jsEndpointsFile}}") if file_exists("{{jsEndpointsFile}}") else "No endpoints data"}}
           
           Provide an exploitation-focused analysis with actionable next steps.
     exports:

@@ -121,7 +121,7 @@ steps:
       {{readFile("{{Output}}/ai-analysis/decision-stats.json")}}
       
       ## 技术指纹 (前15条)
-      {{readLines("{{fingerprintFile}}")}}
+      请使用 read_lines 工具读取 {{fingerprintFile}}
       
       请提供完整的JSON格式决策建议：
       ```json

@@ -134,25 +134,25 @@ steps:
           请验证目标 {{Target}} 的漏洞发现，判断其真实性并识别假阳性。
 
           ## 技术栈背景
-          {{readLines("{{fingerprintFile}}")}}
+          请使用 read_lines 工具读取 {{fingerprintFile}}
 
           ## Nuclei Critical 漏洞
-          {{readLines("{{nucleiCriticalFile}}")}}
+          请使用 read_lines 工具读取 {{nucleiCriticalFile}}
 
           ## Nuclei High 漏洞
-          {{readLines("{{nucleiHighFile}}")}}
+          请使用 read_lines 工具读取 {{nucleiHighFile}}
 
           ## Secrets 发现
-          {{readLines("{{secretsFile}}")}}
+          请使用 read_lines 工具读取 {{secretsFile}}
 
           ## SSRF 发现
-          {{readLines("{{ssrfFile}}")}}
+          请使用 read_lines 工具读取 {{ssrfFile}}
 
           ## SQLi 发现
-          {{readLines("{{sqliFile}}")}}
+          请使用 read_lines 工具读取 {{sqliFile}}
 
           ## Takeover 发现
-          {{readLines("{{takeoverFile}}")}}
+          请使用 read_lines 工具读取 {{takeoverFile}}
 
           请输出 JSON 格式的验证结果保存到 {{vulnValidationOutput}}：
           ```json

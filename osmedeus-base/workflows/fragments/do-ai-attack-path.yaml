@@ -87,18 +87,15 @@ steps:
     query: |
       请对目标 {{Target}} 进行攻击链分析，识别可串联的攻击路径：
       
-      ## 已发现漏洞
-      Critical: {{file_length("{{nucleiCriticalFile}}")}}
-      High: {{file_length("{{nucleiHighFile}}")}}
+      ## 统计信息
+      - Critical 漏洞数: 请使用 file_length 工具读取 {{nucleiCriticalFile}}
+      - High 漏洞数: 请使用 file_length 工具读取 {{nucleiHighFile}}
       
-      漏洞详情:
-      {{readLines("{{nucleiFile}}")}}
-      
-      ## 发现的敏感信息
-      {{readLines("{{secretsFile}}")}}
-      
-      ## 技术栈
-      {{readLines("{{fingerprintFile}}")}}
+      ## 数据文件
+      请使用 read_lines 工具读取以下文件获取详细信息：
+      - {{nucleiFile}} - 漏洞详情
+      - {{secretsFile}} - 敏感信息
+      - {{fingerprintFile}} - 技术指纹
       
       请输出JSON格式的攻击链：
       ```json
@@ -162,32 +159,22 @@ steps:
     query: |
       请对目标 {{Target}} 进行全面的攻击路径规划分析。
       
-      ## 资产发现
-      子域名: {{file_length("{{subdomainFile}}")}}
-      HTTP服务: {{file_length("{{httpFile}}")}}
-      解析IP: {{file_length("{{resolvedFile}}")}}
+      ## 统计数据
+      请使用 file_length 工具获取以下数据：
+      - 子域名数: {{subdomainFile}}
+      - HTTP服务数: {{httpFile}}
+      - 解析IP数: {{resolvedFile}}
+      - Critical漏洞数: {{nucleiCriticalFile}}
+      - High漏洞数: {{nucleiHighFile}}
       
-      ## 技术指纹
-      {{readLines("{{fingerprintFile}}")}}
-      
-      ## 已发现漏洞
-      Critical: {{file_length("{{nucleiCriticalFile}}")}}
-      High: {{file_length("{{nucleiHighFile}}")}}
-      
-      漏洞详情:
-      {{readLines("{{nucleiFile}}")}}
-      
-      ## 发现的敏感信息
-      {{readLines("{{secretsFile}}")}}
-      
-      ## JS端点
-      {{readLines("{{jsEndpointsFile}}")}}
-      
-      ## OSINT信息
-      {{readLines("{{osintFile}}")}}
-      
-      ## WAF保护
-      {{readLines("{{wafFile}}")}}
+      ## 详细数据
+      请使用 read_lines 工具读取以下文件：
+      - {{fingerprintFile}} - 技术指纹
+      - {{nucleiFile}} - 漏洞详情
+      - {{secretsFile}} - 敏感信息
+      - {{jsEndpointsFile}} - JS端点
+      - {{osintFile}} - OSINT信息
+      - {{wafFile}} - WAF保护状态
       
       请生成详细的攻击路径规划，包括：
       1. **攻击概述** - 目标安全态势评估

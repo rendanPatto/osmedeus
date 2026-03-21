@@ -80,10 +80,14 @@ steps:
       请分析以下 WAF 样本，生成规避策略：
       
       ## WAF 检测结果
-      {{readLines("{{Output}}/ai-analysis/waf-test/waf-samples.txt")}}
+      {% if file_exists("{{Output}}/ai-analysis/waf-test/waf-samples.txt") %}
+      请使用 read_lines 工具读取 {{Output}}/ai-analysis/waf-test/waf-samples.txt 的前15行
+      {% else %}无 WAF 样本{% endif %}
       
       ## HTTP 样本（用于测试规避）
-      {{readLines("{{Output}}/ai-analysis/waf-test/http-samples.txt")}}
+      {% if file_exists("{{Output}}/ai-analysis/waf-test/http-samples.txt") %}
+      请使用 read_lines 工具读取 {{Output}}/ai-analysis/waf-test/http-samples.txt 的前10行
+      {% endif %}
       
       请输出完整的 JSON 格式规避策略：
       ```json

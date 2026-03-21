@@ -118,7 +118,9 @@ steps:
       {{readFile("{{Output}}/ai-analysis/decision-stats.json")}}
       
       ## 技术指纹 (前15条)
-      
+      {% if file_exists("{{fingerprintFile}}") %}
+      请使用 read_lines 工具读取 {{fingerprintFile}} 的前15行
+      {% endif %}
       
       请提供完整的JSON格式决策建议：
       ```json
@@ -160,7 +162,7 @@ steps:
     pre_condition: "{{enableAiDecision}}"
     log: "Validating AI decision output"
     functions:
-      - 'log_info("AI Decision: " + "{{decision_json}}")'
+      - 'log_info("AI Decision: " + "{{decision_json}}"[:200])'
 
   - name: save-decision-result
     type: bash

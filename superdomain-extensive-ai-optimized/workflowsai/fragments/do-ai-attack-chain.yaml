@@ -109,28 +109,44 @@ steps:
       请分析以下漏洞数据，识别可串联的攻击链：
 
       ## 技术栈
-      未知
+      {% if file_exists("{{fingerprintFile}}") %}
+      请使用 read_lines 工具读取 {{fingerprintFile}} 的前10行
+      {% else %}未知{% endif %}
 
       ## 已验证漏洞（优先使用）
-      无验证数据，使用原始扫描结果
+      {% if file_exists("{{vulnValidationFile}}") %}
+      请使用 read_lines 工具读取 {{vulnValidationFile}} 的前50行
+      {% else %}无验证数据，使用原始扫描结果{% endif %}
 
       ## Critical 漏洞
-      无
+      {% if file_exists("{{nucleiCriticalFile}}") %}
+      请使用 read_lines 工具读取 {{nucleiCriticalFile}} 的前10行
+      {% else %}无{% endif %}
 
       ## High 漏洞
-      无
+      {% if file_exists("{{nucleiHighFile}}") %}
+      请使用 read_lines 工具读取 {{nucleiHighFile}} 的前10行
+      {% else %}无{% endif %}
 
       ## Secrets
-      无
+      {% if file_exists("{{secretsFile}}") %}
+      请使用 read_lines 工具读取 {{secretsFile}} 的前5行
+      {% else %}无{% endif %}
 
       ## SQLi
-      无
+      {% if file_exists("{{sqliFile}}") %}
+      请使用 read_lines 工具读取 {{sqliFile}} 的前5行
+      {% else %}无{% endif %}
 
       ## Takeover
-      无
+      {% if file_exists("{{takeoverFile}}") %}
+      请使用 read_lines 工具读取 {{takeoverFile}} 的前5行
+      {% else %}无{% endif %}
 
       ## 已确认可利用的 URL
-      无
+      {% if file_exists("{{confirmedUrlsFile}}") %}
+      请使用 read_lines 工具读取 {{confirmedUrlsFile}} 的前20行
+      {% else %}无{% endif %}
 
       请输出 JSON 格式的攻击链分析：
       ```json

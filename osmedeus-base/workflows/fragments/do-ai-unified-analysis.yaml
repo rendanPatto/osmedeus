@@ -119,28 +119,17 @@ steps:
     query: |
       请对目标 {{Target}} 进行综合分析：
       
-      ## 资产统计
+      ## 资产统计 (已收集)
       {{readFile("{{Output}}/ai-analysis/unified-stats.json")}}
       
-      ## 已发现漏洞 (Nuclei)
-      Critical:
-      {{readLines("{{nucleiCriticalFile}}")}}
-      
-      High:
-      {{readLines("{{nucleiHighFile}}")}}
-      
-      ## 特殊漏洞
-      Secrets:
-      {{readLines("{{secretsFile}}")}}
-      
-      SSRF:
-      {{readLines("{{ssrfFile}}")}}
-      
-      ## 技术栈
-      {{readLines("{{fingerprintFile}}")}}
-      
-      ## WAF 保护
-      {{readLines("{{wafFile}}")}}
+      ## 详细漏洞数据
+      请使用 agent_tools 中的 read_lines 工具读取以下文件获取详细信息：
+      - nucleiCriticalFile: {{nucleiCriticalFile}}
+      - nucleiHighFile: {{nucleiHighFile}}
+      - secretsFile: {{secretsFile}}
+      - ssrfFile: {{ssrfFile}}
+      - fingerprintFile: {{fingerprintFile}}
+      - wafFile: {{wafFile}}
       
       请输出完整的 JSON 格式分析报告：
       ```json

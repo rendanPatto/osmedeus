@@ -342,13 +342,13 @@ steps:
       {{searchQuery}}
 
       ## 漏洞索引数据
-      {{readLines("{{semanticIndexDir}}/vulns-index.txt")}}
+      请使用 read_lines 工具读取 {{semanticIndexDir}}/vulns-index.txt
 
       ## 技术栈索引
-      {{readLines("{{semanticIndexDir}}/tech-index.txt")}}
+      请使用 read_lines 工具读取 {{semanticIndexDir}}/tech-index.txt
 
       ## 子域名索引
-      {{readLines("{{semanticIndexDir}}/subdomains-index.txt")}}
+      请使用 read_lines 工具读取 {{semanticIndexDir}}/subdomains-index.txt
 
       请输出 JSON 格式的搜索结果：
       ```json

@@ -78,25 +78,39 @@ steps:
       请验证以下漏洞发现，判断其真实性并识别假阳性：
 
       ## 技术栈背景
-      {{readLines("{{fingerprintFile}}")}}
+      {% if file_exists("{{fingerprintFile}}") %}
+      请使用 read_lines 工具读取 {{fingerprintFile}} 的前10行
+      {% else %}未知{% endif %}
 
       ## Nuclei Critical 漏洞
-      {{readLines("{{nucleiCriticalFile}}")}}
+      {% if file_exists("{{nucleiCriticalFile}}") %}
+      请使用 read_lines 工具读取 {{nucleiCriticalFile}} 的前15行
+      {% else %}无{% endif %}
 
       ## Nuclei High 漏洞
-      {{readLines("{{nucleiHighFile}}")}}
+      {% if file_exists("{{nucleiHighFile}}") %}
+      请使用 read_lines 工具读取 {{nucleiHighFile}} 的前15行
+      {% else %}无{% endif %}
 
       ## Secrets 发现
-      {{readLines("{{secretsFile}}")}}
+      {% if file_exists("{{secretsFile}}") %}
+      请使用 read_lines 工具读取 {{secretsFile}} 的前5行
+      {% else %}无{% endif %}
 
       ## SSRF 发现
-      {{readLines("{{ssrfFile}}")}}
+      {% if file_exists("{{ssrfFile}}") %}
+      请使用 read_lines 工具读取 {{ssrfFile}} 的前5行
+      {% else %}无{% endif %}
 
       ## SQLi 发现
-      {{readLines("{{sqliFile}}")}}
+      {% if file_exists("{{sqliFile}}") %}
+      请使用 read_lines 工具读取 {{sqliFile}} 的前5行
+      {% else %}无{% endif %}
 
       ## Takeover 发现
-      {{readLines("{{takeoverFile}}")}}
+      {% if file_exists("{{takeoverFile}}") %}
+      请使用 read_lines 工具读取 {{takeoverFile}} 的前5行
+      {% else %}无{% endif %}
 
       请输出 JSON 格式的验证结果：
       ```json

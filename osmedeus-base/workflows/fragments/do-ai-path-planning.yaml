@@ -93,19 +93,19 @@ steps:
       请基于以下攻击链分析，生成详细的执行计划：
 
       ## 攻击链分析结果
-      {{readLines("{{attackChainFile}}")}}
+      请使用 read_lines 工具读取 {{attackChainFile}}
 
       ## 已验证漏洞
-      {{readLines("{{vulnValidationFile}}")}}
+      请使用 read_lines 工具读取 {{vulnValidationFile}}
 
       ## 入口点
-      {{readLines("{{entryPointsFile}}")}}
+      请使用 read_lines 工具读取 {{entryPointsFile}}
 
       ## 技术栈
-      {{readLines("{{fingerprintFile}}")}}
+      请使用 read_lines 工具读取 {{fingerprintFile}}
 
       ## WAF 状态
-      {{readLines("{{wafFile}}")}}
+      请使用 read_lines 工具读取 {{wafFile}}
 
       请输出 JSON 格式的攻击计划：
       ```json

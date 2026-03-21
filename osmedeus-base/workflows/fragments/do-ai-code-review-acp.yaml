@@ -78,7 +78,7 @@ steps:
           请审查目标 {{Target}} 的代码，识别安全漏洞。
 
           ## 已发现的漏洞
-          {{readLines("{{vulnFindingsFile}}")}}
+          请使用 read_lines 工具读取 {{vulnFindingsFile}}
 
           请输出 JSON 格式的代码审查结果保存到 {{codeReviewOutput}}：
           ```json

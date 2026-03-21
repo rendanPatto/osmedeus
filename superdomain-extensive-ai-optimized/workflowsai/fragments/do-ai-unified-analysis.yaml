@@ -121,23 +121,27 @@ steps:
       
       ## 已发现漏洞 (Nuclei)
       Critical:
-      {{readLines("{{nucleiCriticalFile}}")}}
+      {% if file_exists("{{nucleiCriticalFile}}") %}
+      请使用 read_lines 工具读取 {{nucleiCriticalFile}} 的前15行
+      {% else %}无{% endif %}
       
       High:
-      {{readLines("{{nucleiHighFile}}")}}
+      {% if file_exists("{{nucleiHighFile}}") %}
+      请使用 read_lines 工具读取 {{nucleiHighFile}} 的前15行
+      {% else %}无{% endif %}
       
       ## 特殊漏洞
       Secrets:
-      {{readLines("{{secretsFile}}")}}
+      {% if file_exists("{{secretsFile}}") %}请使用 read_lines 工具读取 {{secretsFile}} 的前10行{% else %}无{% endif %}
       
       SSRF:
-      {{readLines("{{ssrfFile}}")}}
+      {% if file_exists("{{ssrfFile}}") %}请使用 read_lines 工具读取 {{ssrfFile}} 的前10行{% else %}无{% endif %}
       
       ## 技术栈
-      {{readLines("{{fingerprintFile}}")}}
+      {% if file_exists("{{fingerprintFile}}") %}请使用 read_lines 工具读取 {{fingerprintFile}} 的前15行{% endif %}
       
       ## WAF 保护
-      {{readLines("{{wafFile}}")}}
+      {% if file_exists("{{wafFile}}") %}请使用 read_lines 工具读取 {{wafFile}} 的前10行{% endif %}
       
       请输出完整的 JSON 格式分析报告：
       ```json

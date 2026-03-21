@@ -85,14 +85,23 @@ steps:
       请对目标 {{Target}} 进行攻击链分析，识别可串联的攻击路径：
       
       ## 已发现漏洞
-      Critical: 0
-      High: 0
+      Critical: {{file_length("{{nucleiCriticalFile}}") if file_exists("{{nucleiCriticalFile}}") else 0}}
+      High: {{file_length("{{nucleiHighFile}}") if file_exists("{{nucleiHighFile}}") else 0}}
       
-      {{readLines("{{nucleiFile}}")}}
+      {% if file_exists("{{nucleiFile}}") %}
+      漏洞详情:
+      请使用 read_lines 工具读取 {{nucleiFile}} 的前30行
+      {% endif %}
       
-      {{readLines("{{secretsFile}}")}}
+      {% if file_exists("{{secretsFile}}") %}
+      ## 发现的敏感信息
+      请使用 read_lines 工具读取 {{secretsFile}} 的前15行
+      {% endif %}
       
-      {{readLines("{{fingerprintFile}}")}}
+      {% if file_exists("{{fingerprintFile}}") %}
+      ## 技术栈
+      请使用 read_lines 工具读取 {{fingerprintFile}} 的前20行
+      {% endif %}
       
       请输出JSON格式的攻击链：
       ```json
@@ -154,26 +163,43 @@ steps:
       请对目标 {{Target}} 进行全面的攻击路径规划分析。
       
       ## 资产发现
-      子域名: 0
-      HTTP服务: 0
-      解析IP: 0
+      子域名: {{file_length("{{subdomainFile}}") if file_exists("{{subdomainFile}}") else 0}}
+      HTTP服务: {{file_length("{{httpFile}}") if file_exists("{{httpFile}}") else 0}}
+      解析IP: {{file_length("{{resolvedFile}}") if file_exists("{{resolvedFile}}") else 0}}
       
       ## 技术指纹
-      {{readLines("{{fingerprintFile}}")}}
+      {% if file_exists("{{fingerprintFile}}") %}
+      请使用 read_lines 工具读取 {{fingerprintFile}} 的前30行
+      {% endif %}
       
       ## 已发现漏洞
-      Critical: 0
-      High: 0
+      Critical: {{file_length("{{nucleiCriticalFile}}") if file_exists("{{nucleiCriticalFile}}") else 0}}
+      High: {{file_length("{{nucleiHighFile}}") if file_exists("{{nucleiHighFile}}") else 0}}
       
-      {{readLines("{{nucleiFile}}")}}
+      {% if file_exists("{{nucleiFile}}") %}
+      漏洞详情:
+      请使用 read_lines 工具读取 {{nucleiFile}} 的前20行
+      {% endif %}
       
-      {{readLines("{{secretsFile}}")}}
+      {% if file_exists("{{secretsFile}}") %}
+      ## 发现的敏感信息
+      请使用 read_lines 工具读取 {{secretsFile}} 的前10行
+      {% endif %}
       
-      {{readLines("{{jsEndpointsFile}}")}}
+      {% if file_exists("{{jsEndpointsFile}}") %}
+      ## JS端点
+      请使用 read_lines 工具读取 {{jsEndpointsFile}} 的前15行
+      {% endif %}
       
-      {{readLines("{{osintFile}}")}}
+      {% if file_exists("{{osintFile}}") %}
+      ## OSINT信息
+      请使用 read_lines 工具读取 {{osintFile}} 的前10行
+      {% endif %}
       
-      {{readLines("{{wafFile}}")}}
+      {% if file_exists("{{wafFile}}") %}
+      ## WAF保护
+      请使用 read_lines 工具读取 {{wafFile}} 的前10行
+      {% endif %}
       
       请生成详细的攻击路径规划，包括：
       1. **攻击概述** - 目标安全态势评估
@@ -224,6 +250,10 @@ steps:
 
       ### 关键攻击路径
 
+      {% if file_exists("${OUTPUT}/ai-analysis/critical-paths.txt") %}
+      {{cat "${OUTPUT}/ai-analysis/critical-paths.txt"}}
+      {% endif %}
+
       ### 详细攻击链
 
       {{attack_chain_json}}
@@ -261,7 +291,7 @@ steps:
     query: |
       基于以下攻击规划：
       
-      {{attack_plan}}
+      {{attack_plan[:4000]}}
       
       请生成一个可执行的检查清单，按优先级排序，包含：
       1. 第一阶段检查项（入口点验证）

@@ -90,19 +90,29 @@ steps:
       请基于以下攻击链分析，生成详细的执行计划：
 
       ## 攻击链分析结果
-      {{readLines("{{attackChainFile}}")}}
+      {% if file_exists("{{attackChainFile}}") %}
+      请使用 read_lines 工具读取 {{attackChainFile}} 的前80行
+      {% else %}无可用攻击链数据{% endif %}
 
       ## 已验证漏洞
-      {{readLines("{{vulnValidationFile}}")}}
+      {% if file_exists("{{vulnValidationFile}}") %}
+      请使用 read_lines 工具读取 {{vulnValidationFile}} 的前30行
+      {% else %}无{% endif %}
 
       ## 入口点
-      {{readLines("{{entryPointsFile}}")}}
+      {% if file_exists("{{entryPointsFile}}") %}
+      请使用 read_lines 工具读取 {{entryPointsFile}} 的前20行
+      {% else %}无{% endif %}
 
       ## 技术栈
-      {{readLines("{{fingerprintFile}}")}}
+      {% if file_exists("{{fingerprintFile}}") %}
+      请使用 read_lines 工具读取 {{fingerprintFile}} 的前10行
+      {% else %}未知{% endif %}
 
       ## WAF 状态
-      {{readLines("{{wafFile}}")}}
+      {% if file_exists("{{wafFile}}") %}
+      请使用 read_lines 工具读取 {{wafFile}} 的前10行
+      {% else %}未检测到 WAF{% endif %}
 
       请输出 JSON 格式的攻击计划：
       ```json

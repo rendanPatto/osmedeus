@@ -106,12 +106,12 @@ steps:
       
       ## 统计信息
       {{readFile("{{Output}}/ai-analysis/pre-scan-stats.json")}}
-      
+
       ## 子域名样本（前50个）
-      {{readLines("{{subdomainFile}}")}}
-      
+      请使用 read_lines 工具读取 {{subdomainFile}}
+
       ## 高优先级关键词匹配的子域名
-      {{readLines("{{Output}}/ai-analysis/temp-priority.txt")}}
+      请使用 read_lines 工具读取 {{Output}}/ai-analysis/temp-priority.txt
       
       请输出完整的 JSON 格式决策建议：
       ```json

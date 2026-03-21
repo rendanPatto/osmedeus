@@ -154,28 +154,28 @@ steps:
           请分析目标 {{Target}} 的漏洞数据，识别可串联的攻击链。
 
           ## 技术栈
-          {{readLines("{{fingerprintFile}}")}}
+          请使用 read_lines 工具读取 {{fingerprintFile}}
 
           ## 已验证漏洞（优先使用）
-          {{readLines("{{vulnValidationFile}}")}}
+          请使用 read_lines 工具读取 {{vulnValidationFile}}
 
           ## Critical 漏洞
-          {{readLines("{{nucleiCriticalFile}}")}}
+          请使用 read_lines 工具读取 {{nucleiCriticalFile}}
 
           ## High 漏洞
-          {{readLines("{{nucleiHighFile}}")}}
+          请使用 read_lines 工具读取 {{nucleiHighFile}}
 
           ## Secrets
-          {{readLines("{{secretsFile}}")}}
+          请使用 read_lines 工具读取 {{secretsFile}}
 
           ## SQLi
-          {{readLines("{{sqliFile}}")}}
+          请使用 read_lines 工具读取 {{sqliFile}}
 
           ## Takeover
-          {{readLines("{{takeoverFile}}")}}
+          请使用 read_lines 工具读取 {{takeoverFile}}
 
           ## 已确认可利用的 URL
-          {{readLines("{{confirmedUrlsFile}}")}}
+          请使用 read_lines 工具读取 {{confirmedUrlsFile}}
 
           请输出 JSON 格式的攻击链分析保存到 {{attackChainOutput}}：
           ```json

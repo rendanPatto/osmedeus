@@ -80,26 +80,15 @@ steps:
     query: |
       请验证以下漏洞发现，判断其真实性并识别假阳性：
 
-      ## 技术栈背景
-      {{readLines("{{fingerprintFile}}")}}
-
-      ## Nuclei Critical 漏洞
-      {{readLines("{{nucleiCriticalFile}}")}}
-
-      ## Nuclei High 漏洞
-      {{readLines("{{nucleiHighFile}}")}}
-
-      ## Secrets 发现
-      {{readLines("{{secretsFile}}")}}
-
-      ## SSRF 发现
-      {{readLines("{{ssrfFile}}")}}
-
-      ## SQLi 发现
-      {{readLines("{{sqliFile}}")}}
-
-      ## Takeover 发现
-      {{readLines("{{takeoverFile}}")}}
+      ## 数据文件
+      请使用 read_lines 工具读取以下文件获取详细信息：
+      - {{fingerprintFile}} - 技术栈背景
+      - {{nucleiCriticalFile}} - Critical 漏洞
+      - {{nucleiHighFile}} - High 漏洞
+      - {{secretsFile}} - Secrets 发现
+      - {{ssrfFile}} - SSRF 发现
+      - {{sqliFile}} - SQLi 发现
+      - {{takeoverFile}} - Takeover 发现
 
       请输出 JSON 格式的验证结果：
       ```json
