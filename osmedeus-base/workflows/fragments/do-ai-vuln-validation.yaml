@@ -257,17 +257,6 @@ steps:
 
       echo "[INFO] [Vuln Validation] Extraction complete"
 
-  - name: cleanup-vuln-files
-    type: bash
-    pre_condition: "{{enableVulnValidation}} && !{{enableCvePreQuery}}"
-    command: |
-      # 清理 CVE 预查询文件（如果未启用）
-      rm -f {{Output}}/ai-analysis/cve/tech-cve.txt 2>/dev/null || true
-      rm -f {{Output}}/ai-analysis/cve/vuln-type-cve.txt 2>/dev/null || true
-      rmdir {{Output}}/ai-analysis/cve 2>/dev/null || true
-      
-      echo "[INFO] [Cleanup] Temporary vulnerability validation files cleaned"
-
   - name: log-validation-complete
     type: function
     pre_condition: "{{enableVulnValidation}}"
